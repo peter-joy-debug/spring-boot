@@ -1,5 +1,5 @@
 package com.example.middleware;
-
+//
 import com.example.authentication.ClaimsResponse;
 import com.example.authentication.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -97,8 +97,6 @@ public class SecurityConfig {
     Boolean isUserAuthenticated(String token)
     {
         Claims claim_email = this.jwtUtil.extractAllClaims(token);
-//        String email = claim_email.getSubject();
-//        User user = this.routeResolveService.getTokenUser(email);
         Boolean isTokenValid_ = this.jwtUtil.isTokenExpired(token);
         if(!isTokenValid_)
         {
@@ -106,10 +104,10 @@ public class SecurityConfig {
         }
         return false;
     }
-    Boolean isUserAdmin(String token)
+    public Boolean isUserAdmin(String token)
     {
         ClaimsResponse claimsResponse = this.jwtUtil.extractClaimsAsClaimResponse(token);
-        return false;
+        return isUserAuthenticated(token) && claimsResponse.getUserRole().equals("ADMIN");
     }
 }
 

@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import com.example.entity.User;
+import com.example.middleware.RouteResolveService;
+import com.example.middleware.SecurityConfig;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,9 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private SecurityConfig securityConfig;
 
+    private RouteResolveService routeResolveService;
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
